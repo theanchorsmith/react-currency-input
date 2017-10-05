@@ -115,7 +115,7 @@ class CurrencyInput extends Component {
      */
     componentDidMount(){
         let node = ReactDOM.findDOMNode(this.theInput);
-        if (event.target.getAttribute('type') !== 'number') {
+        if (node.getAttribute('type') !== 'number') {
             let selectionEnd = Math.min(node.selectionEnd, this.theInput.value.length - this.props.suffix.length);
             let selectionStart = Math.min(node.selectionStart, selectionEnd);
             //console.log("normal", selectionStart, selectionEnd);
@@ -211,7 +211,7 @@ class CurrencyInput extends Component {
         let selectionEnd = this.theInput.value.length - this.props.suffix.length;
         let isNegative = (this.theInput.value.match(/-/g) || []).length % 2 === 1;
         let selectionStart = this.props.prefix.length + (isNegative ? 1 : 0);
-        if (node.getAttribute('type') !== 'number') {
+        if (event.target.getAttribute('type') !== 'number') {
             event.target.setSelectionRange(selectionStart, selectionEnd);
             this.inputSelectionStart = selectionStart;
             this.inputSelectionEnd = selectionEnd;
