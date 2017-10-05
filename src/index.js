@@ -115,12 +115,12 @@ class CurrencyInput extends Component {
      */
     componentDidMount(){
         let node = ReactDOM.findDOMNode(this.theInput);
-
-        let selectionEnd = Math.min(node.selectionEnd, this.theInput.value.length - this.props.suffix.length);
-        let selectionStart = Math.min(node.selectionStart, selectionEnd);
-        //console.log("normal", selectionStart, selectionEnd);
-        node.setSelectionRange(selectionStart, selectionEnd);
-
+        if (event.target.getAttribute('type') !== 'number') {
+            let selectionEnd = Math.min(node.selectionEnd, this.theInput.value.length - this.props.suffix.length);
+            let selectionStart = Math.min(node.selectionStart, selectionEnd);
+            //console.log("normal", selectionStart, selectionEnd);
+            node.setSelectionRange(selectionStart, selectionEnd);    
+        }
     }
 
 
@@ -169,10 +169,11 @@ class CurrencyInput extends Component {
             selectionEnd = this.theInput.value.length - this.props.suffix.length;
             selectionStart = selectionEnd;
         }
-
-        node.setSelectionRange(selectionStart, selectionEnd);
-        this.inputSelectionStart = selectionStart;
-        this.inputSelectionEnd = selectionEnd;
+        if (node.getAttribute('type') !== 'number') {
+            node.setSelectionRange(selectionStart, selectionEnd);
+            this.inputSelectionStart = selectionStart;
+            this.inputSelectionEnd = selectionEnd;
+        }
     }
 
 
@@ -210,9 +211,11 @@ class CurrencyInput extends Component {
         let selectionEnd = this.theInput.value.length - this.props.suffix.length;
         let isNegative = (this.theInput.value.match(/-/g) || []).length % 2 === 1;
         let selectionStart = this.props.prefix.length + (isNegative ? 1 : 0);
-        event.target.setSelectionRange(selectionStart, selectionEnd);
-        this.inputSelectionStart = selectionStart;
-        this.inputSelectionEnd = selectionEnd;
+        if (node.getAttribute('type') !== 'number') {
+            event.target.setSelectionRange(selectionStart, selectionEnd);
+            this.inputSelectionStart = selectionStart;
+            this.inputSelectionEnd = selectionEnd;
+        }
     }
 
 
